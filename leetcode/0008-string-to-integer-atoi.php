@@ -3,21 +3,21 @@
 /**
  * 8. String to Integer (atoi)
  * https://leetcode.com/problems/string-to-integer-atoi/
+ *
+ * Runtime: 0 ms, faster than 100.00% of PHP online submissions for String to Integer (atoi).
  */
 
-class Solution
-{
+class Solution {
+
     /**
      * @param String $str
      * @return Integer
      */
-    function myAtoi($str)
-    {
-        $str = trim($str);
-        $int = (int)(strpos($str, ' ') ? substr($str, 0, strpos($str, ' ')) : $str);
-        if (preg_match('/^([\-\+]?[0-9]+)\D.*/', $str, $match)) $int = (int)$match[1];
-        if ($int >= pow(2, 31)) return pow(2, 31) - 1;
-        if ($int < pow(-2, 31)) return pow(-2, 31);
+    function myAtoi($str) {
+        if(!preg_match('/^([\-\+]?[0-9]+)/', trim($str), $match)) return 0;
+        $int = (int)$match[1];
+        if($int >= pow(2, 31)) return pow(2, 31) - 1;
+        if($int < pow(-2, 31)) return pow(-2, 31);
         return $int;
     }
 }
