@@ -3,8 +3,6 @@
 /**
  * 8. String to Integer (atoi)
  * https://leetcode.com/problems/string-to-integer-atoi/
- *
- * Runtime: 0 ms, faster than 100.00% of PHP online submissions for String to Integer (atoi).
  */
 
 class Solution {
