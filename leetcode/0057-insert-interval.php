@@ -22,7 +22,7 @@ class Solution
         }
 
         // if new interval is over than all
-        if (!count($intervals) || $newInterval[0] > $intervals[$length - 1][1]) {
+        if ($newInterval[0] > $intervals[$length - 1][1]) {
             $intervals[] = $newInterval;
             return $intervals;
         }
