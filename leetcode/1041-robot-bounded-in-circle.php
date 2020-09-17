@@ -5,44 +5,25 @@
  * https://leetcode.com/problems/robot-bounded-in-circle/
  */
 
-class Solution
-{
+class Solution {
+
     /**
      * @param String $instructions
      * @return Boolean
      */
-    function isRobotBounded($instructions)
-    {
-        // x, y, direction (0 - up, 1 - right, 2 - down, 3 - left)
-        $now = ['x' => 0, 'y' => 0, 'd' => 0];
+    function isRobotBounded($instructions) {
+        // x, y, dx, dy
+        $x = $y = $dx = 0;
+        $dy = 1;
 
-        for ($i = 0; $i < 4; $i++) {
-            for ($j = 0; $j < strlen($instructions); $j++)
-                switch ($instructions[$j]) {
-                    case 'L':
-                        $now['d'] = $now['d'] > 0 ? $now['d'] - 1 : $now['d'] + 3;
-                        break;
-                    case 'R':
-                        $now['d'] = $now['d'] < 3 ? $now['d'] + 1 : $now['d'] - 3;
-                        break;
-                    case 'G':
-                        switch ($now['d']) {
-                            case 0:
-                                $now['y']++;
-                                break;
-                            case 1:
-                                $now['x']++;
-                                break;
-                            case 2:
-                                $now['y']--;
-                                break;
-                            case 3:
-                                $now['x']--;
-                                break;
-                        }
-                        break;
+        for($i = 0; $i < 4; $i ++) {
+            for($j = 0; $j < strlen($instructions); $j++)
+                switch($instructions[$j]) {
+                    case 'L': list($dx, $dy) = [-$dy, $dx]; break;
+                    case 'R': list($dx, $dy) = [$dy, -$dx]; break;
+                    case 'G': $x += $dx; $y += $dy; break;
                 }
-            if ($now == ['x' => 0, 'y' => 0, 'd' => 0]) return true;
+            if($x==0 && $y==0 && $dx==0 && $dy==1) return true;
         }
         return false;
     }
