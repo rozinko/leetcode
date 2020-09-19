@@ -22,9 +22,8 @@ class Solution
         $nums = [];
 
         for ($digits = $minDigits; $digits <= $maxDigits; $digits++) {
-            for ($start = 0; $start < 9; $start++) {
+            for ($start = 0; ($start + $digits) <= 9; $start++) {
                 $num = (int)substr($s, $start, $digits);
-                if (strlen($num) < $digits) continue 2;
                 if ($num < $low) continue;
                 if ($num > $high) return $nums;
                 $nums[] = $num;
