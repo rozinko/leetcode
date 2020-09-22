@@ -11,19 +11,11 @@ class Solution
      * @param Integer[] $nums
      * @return Integer[]
      */
-    function majorityElement($nums)
-    {
+    function majorityElement($nums) {
         sort($nums);
-        $result = [];
-        for ($i = 0, $val = false, $count = 0, $length = count($nums); $i < $length; $i++) {
-            if ($nums[$i] != $val) {
-                if ($count > $length / 3) $result[] = $val;
-                $count = 0;
-            }
-            $val = $nums[$i];
-            $count++;
-            if ($count > $length / 3 && $i == $length - 1) $result[] = $val;
-        }
-        return $result;
+        $needed = floor(count($nums)/3) + 1;
+        return array_unique(array_filter($nums, function($val, $key) use ($nums, $needed) {
+            return isset($nums[$key+$needed-1]) && $nums[$key+$needed-1] == $val;
+        }, ARRAY_FILTER_USE_BOTH));
     }
 }
