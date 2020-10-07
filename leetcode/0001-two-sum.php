@@ -14,11 +14,13 @@ class Solution
      */
     function twoSum($nums, $target)
     {
-        $length = count($nums);
+        $map = [];
 
-        for ($i = 0; $i < $length - 1; $i++)
-            for ($j = $i + 1; $j < $length; $j++)
-                if ($nums[$i] + $nums[$j] == $target)
-                    return [$i, $j];
+        foreach ($nums as $i => $num)
+            if (!isset($map[$target - $num])) {
+                $map[$num] = $i;
+            } else {
+                return [$map[$target - $num], $i];
+            }
     }
 }
