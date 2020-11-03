@@ -3,6 +3,8 @@
 /**
  * 1624. Largest Substring Between Two Equal Characters
  * https://leetcode.com/problems/largest-substring-between-two-equal-characters/
+ *
+ * https://leetcode.com/problems/largest-substring-between-two-equal-characters/discuss/902667/php-one-pass-solution-on-0ms-faster-than-10000
  */
 
 class Solution

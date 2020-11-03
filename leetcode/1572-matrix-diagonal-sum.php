@@ -3,6 +3,8 @@
 /**
  * 1572. Matrix Diagonal Sum
  * https://leetcode.com/problems/matrix-diagonal-sum/
+ *
+ * https://leetcode.com/problems/matrix-diagonal-sum/discuss/857581/php-easy-on-solution
  */
 
 class Solution

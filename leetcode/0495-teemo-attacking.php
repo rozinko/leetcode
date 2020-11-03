@@ -3,6 +3,8 @@
 /**
  * 495. Teemo Attacking
  * https://leetcode.com/problems/teemo-attacking/
+ *
+ * https://leetcode.com/problems/teemo-attacking/discuss/865893/php-simple-linear-solution
  */
 
 class Solution
