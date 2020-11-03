@@ -3,6 +3,8 @@
 /**
  * 147. Insertion Sort List
  * https://leetcode.com/problems/insertion-sort-list/
+ *
+ * https://leetcode.com/problems/insertion-sort-list/discuss/921126/php-easy-solution-with-commentaries
  */
 
 /**
@@ -27,27 +29,27 @@ class Solution
         $cur = $head;
         while ($cur->next) {
             if ($cur->next->val >= $cur->val) {
-                // элемент уже на нужном месте, переходим к следующему элементу
+                // elements is already in the right spot, moving on to the next one
                 $cur = $cur->next;
             } else {
-                // изымаем элемент
+                // taking the element out
                 $node = $cur->next;
                 $cur->next = $node->next;
                 $node->next = null;
-                // ищем позицию куда вставить
+                // looking for the right position for this element
                 $prev = null;
                 $pos = $head;
                 while ($pos && $pos->val <= $node->val) {
-                    // едем дальше пока не найдем местом или закончится список
+                    // going forward until the right spot is found or the list is over
                     $prev = $pos;
                     $pos = $pos->next;
                 }
-                // нашли место, вставляем элемент
+                // found the right positions, inserting the element
                 $node->next = $pos;
                 if ($prev) {
                     $prev->next = $node;
                 } else {
-                    // если вдруг впереди всех встал
+                    // in case the node got placed at the start of the list
                     $head = $node;
                 }
             }
