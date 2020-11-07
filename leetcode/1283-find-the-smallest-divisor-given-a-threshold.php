@@ -3,6 +3,8 @@
 /**
  * 1283. Find the Smallest Divisor Given a Threshold
  * https://leetcode.com/problems/find-the-smallest-divisor-given-a-threshold/
+ *
+ * https://leetcode.com/problems/find-the-smallest-divisor-given-a-threshold/discuss/926272/PHP-Simple-binary-search-solution
  */
 
 class Solution
