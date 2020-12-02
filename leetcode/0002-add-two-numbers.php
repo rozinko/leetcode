@@ -18,34 +18,6 @@
  */
 class Solution
 {
-    function nodeToRevString($node)
-    {
-        return $node->val . ($node->next !== null ? $this->nodeToRevString($node->next) : '');
-    }
-
-    function compareRevStrings($s1, $s2)
-    {
-        $maxLength = max([strlen($s1), strlen($s2)]);
-
-        $s3 = '';
-        $val_next = 0;
-
-        for ($i = 0; $i <= $maxLength; $i++) {
-            $val = (int)($s1[$i] ?? 0) + (int)($s2[$i] ?? 0) + $val_next;
-            $val_next = 0;
-            if ($val >= 10) {
-                $val -= 10;
-                $val_next = 1;
-            }
-            $s3 .= $i < $maxLength || $val != 0 ? $val : '';
-        }
-        return $s3;
-    }
-
-    function revStringToNode($s)
-    {
-        return new ListNode($s[0], isset($s[1]) ? $this->revStringToNode(substr($s, 1)) : null);
-    }
 
     /**
      * @param ListNode $l1
@@ -54,10 +26,19 @@ class Solution
      */
     function addTwoNumbers($l1, $l2)
     {
-        $s1 = $this->nodeToRevString($l1);
-        $s2 = $this->nodeToRevString($l2);
-        $s3 = $this->compareRevStrings($s1, $s2);
-        echo $s3;
-        return $this->revStringToNode($s3);
+        $head = $current = new ListNode();
+
+        $val = $valNext = 0;
+        while ($l1 || $l2 || $valNext) {
+            $val = ($l1->val ?? 0) + ($l2->val ?? 0) + $valNext;
+            $valNext = $val >= 10 ? 1 : 0;
+
+            $current->next = new ListNode($val % 10);
+            $current = $current->next;
+            $l1 = $l1->next;
+            $l2 = $l2->next;
+        }
+
+        return $head->next;
     }
 }
