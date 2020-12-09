@@ -23,12 +23,10 @@
 
  class BSTIterator {
 
-     let tree: TreeNode?;
      var parents: [TreeNode?] = []
 
      init(_ root: TreeNode?) {
          var root = root
-         self.tree = root
 
          while root != nil {
              self.parents.append(root)

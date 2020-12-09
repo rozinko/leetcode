@@ -17,7 +17,6 @@
  * @param {TreeNode} root
  */
 var BSTIterator = function (root) {
-    this.tree = root
     this.parents = []
 
     while (root) {

@@ -22,7 +22,6 @@
  */
 class BSTIterator
 {
-    private $tree = null;
     private $parents = [];
 
     /**
@@ -30,7 +29,6 @@ class BSTIterator
      */
     function __construct($root)
     {
-        $this->tree = $root;
         while ($root) {
             $this->parents[] = $root;
             $root = $root->left;
