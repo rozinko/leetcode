@@ -3,6 +3,8 @@
 /**
  * 173. Binary Search Tree Iterator
  * https://leetcode.com/problems/binary-search-tree-iterator/
+ *
+ * https://leetcode.com/problems/binary-search-tree-iterator/discuss/966100/PHP-JavaScript-Swift-Stacks-faster-100-O(1)-time-O(h)-space-explained
  */
 
 /**
@@ -28,10 +30,10 @@ class BSTIterator
      */
     function __construct($root)
     {
-        $this->tree = $cur = $root;
-        while ($cur) {
-            $this->parents[] = $cur;
-            $cur = $cur->left;
+        $this->tree = $root;
+        while ($root) {
+            $this->parents[] = $root;
+            $root = $root->left;
         }
     }
 
