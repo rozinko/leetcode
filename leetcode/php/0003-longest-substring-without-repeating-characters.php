@@ -13,36 +13,18 @@ class Solution
      */
     function lengthOfLongestSubstring($s)
     {
-        $maxLength = 0;
-        $curLength = 0;
-        $sLength = strlen($s);
-        $chars = [];
-        $substring = '';
-        for ($i = 0; $i < $sLength;) {
-            // перебор символов с проверкой в символьном массиве
-            if (isset($chars[$s[$i]])) {
-                // повтор символа
-                // заканчиваем текущий набор, начинаем новый с позиции равной повторной букве
-                $i = $chars[$s[$i]] + 1;
-                if ($curLength > $maxLength) {
-                    $maxLength = $curLength;
-                }
-                $curLength = 0;
-                $substring = '';
-                $chars = [];
-            } else {
-                // символ новый, идем дальше и пишем позицию
-                $substring .= $s[$i];
-                $chars[$s[$i]] = $i;
-                $curLength++;
-                $i++;
+        $len = $left = $right = 0;
+        $map = [];
+
+        while ($right < strlen($s)) {
+            if (isset($map[$s[$right]])) {
+                while ($s[$left] !== $s[$right]) unset($map[$s[$left++]]);
+                $left++;
             }
+            $map[$s[$right++]] = true;
+            $len = max($len, count($map));
         }
 
-        if ($curLength > $maxLength) {
-            return $curLength;
-        } else {
-            return $maxLength;
-        }
+        return $len;
     }
 }
