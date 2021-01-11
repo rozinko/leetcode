@@ -8,7 +8,7 @@
 class Solution
 {
     /**
-     * @param String $s
+     * @param String  $s
      * @param Integer $numRows
      * @return String
      */
@@ -22,11 +22,7 @@ class Solution
         for ($i = 1; $i <= strlen($s); $i++) {
             $j = $i % $cycle == 0 ? $cycle : $i % $cycle;
             if ($j > $numRows) $j = $numRows * 2 - $j;
-            if (isset($str[$j])) {
-                $str[$j] .= $s[$i - 1];
-            } else {
-                $str[$j] = $s[$i - 1];
-            }
+            $str[$j] = ($str[$j] ?? '') . $s[$i - 1];
         }
 
         return implode('', $str);
