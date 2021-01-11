@@ -22,7 +22,7 @@ class Solution
                 $left++;
             }
             $map[$s[$right++]] = true;
-            $len = max($len, count($map));
+            $len = max($len, $right - $left);
         }
 
         return $len;
