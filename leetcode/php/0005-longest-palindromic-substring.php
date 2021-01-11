@@ -3,8 +3,6 @@
 /**
  * 5. Longest Palindromic Substring
  * https://leetcode.com/problems/longest-palindromic-substring/
- *
- * TODO: Runtime: 1948 ms, faster than 19.75% of PHP online submissions for Longest Palindromic Substring.
  */
 
 class Solution
@@ -15,13 +13,37 @@ class Solution
      */
     function longestPalindrome($s)
     {
-        $max = strlen(trim($s));
-        for ($len = $max; $len; $len--)
-            for ($i = 0; $i <= $max - $len; $i++) {
-                $substr = substr($s, $i, $len);
-                if ($substr == strrev($substr))
-                    return $substr;
+        $ans = "";
+        $anslen = 0;
+        $len = strlen($s);
+
+        for ($i = 0; $i < $len; $i++) {
+            // substr with len = 1, 3, 5, ...
+            $j = max(0, ceil($anslen / 2)); // set start j, start len must be greater that ans len
+            $maxj = min($i, $len - $i);
+            while ($j <= $maxj) {
+                $str = substr($s, $i - $j, 1 + 2 * $j);
+                if ($str != strrev($str)) break;
+                if (strlen($str) > $anslen) {
+                    $ans = $str;
+                    $anslen = strlen($str);
+                }
+                $j++;
             }
-        return "";
+            // substr with len = 2, 4, 6, ...
+            $j = max(0, ceil(($anslen - 1) / 2)); // set start j, start len must be greater that ans len
+            $maxj = min($i, $len - $i - 1);
+            while ($j <= $maxj) {
+                $str = substr($s, $i - $j, 2 + 2 * $j);
+                if ($str != strrev($str)) break;
+                if (strlen($str) > $anslen) {
+                    $ans = $str;
+                    $anslen = strlen($str);
+                }
+                $j++;
+            }
+        }
+
+        return $ans;
     }
 }
