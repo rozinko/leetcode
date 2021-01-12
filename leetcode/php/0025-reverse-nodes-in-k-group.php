@@ -20,17 +20,16 @@ class Solution
 {
     /**
      * @param ListNode $head
-     * @param Integer $k
+     * @param Integer  $k
      * @return ListNode
      */
     function reverseKGroup($head, $k)
     {
-        $current = $head;
-        if ($k == 1) return $head;
+        if ($k === 1) return $head;
 
-        for ($i = 1; $i < $k; $i++) {
+        $current = $head;
+        for ($i = 1; $i < $k; $i++)
             if (!$current = $current->next) return $head;
-        }
 
         $current = $head;
         for ($i = 1; $i < $k; $i++) {
