@@ -21,10 +21,10 @@ class Solution {
 
         let head = current
 
-        var val = 0, valNext = 0
+        var valNext = 0
 
         while l1 !== nil || l2 !== nil || valNext > 0 {
-            val = (l1?.val ?? 0) + (l2?.val ?? 0) + valNext
+            let val = (l1?.val ?? 0) + (l2?.val ?? 0) + valNext
             valNext = val >= 10 ? 1 : 0
 
             current?.next = ListNode(val % 10)
