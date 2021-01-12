@@ -13,29 +13,28 @@ class Solution
      */
     function isValid($s)
     {
-        $a = '';
-        for ($i = 0; $i < strlen($s); $i++) {
+        $stack = [];
+
+        for ($i = 0; $i < strlen($s); $i++)
             switch ($s[$i]) {
                 case '(':
                 case '{':
                 case '[':
-                    $a .= $s[$i];
+                    $stack[] = $s[$i];
                     break;
                 case ')':
-                    if (substr($a, -1) != '(') return false;
-                    $a = substr($a, 0, -1);
+                    if (array_pop($stack) !== '(') return false;
                     break;
                 case '}':
-                    if (substr($a, -1) != '{') return false;
-                    $a = substr($a, 0, -1);
+                    if (array_pop($stack) !== '{') return false;
                     break;
                 case ']':
-                    if (substr($a, -1) != '[') return false;
-                    $a = substr($a, 0, -1);
+                    if (array_pop($stack) !== '[') return false;
                     break;
+                default:
+                    return false;
             }
-        }
-        if ($a != '') return false;
-        return true;
+
+        return empty($stack);
     }
 }
