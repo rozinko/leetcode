@@ -33,14 +33,12 @@ class Solution
                             } elseif ($sum < $target) {
                                 $l++;
                             } else {
-                                $result[] = $nums[$i] . ":" . $nums[$j] . ":" . $nums[$l] . ":" . $nums[$r];
+                                $result[] = [$nums[$i], $nums[$j], $nums[$l], $nums[$r]];
                                 $l++;
                             }
                         }
                     }
 
-        return array_map(function ($str) {
-            return explode(":", $str);
-        }, array_unique($result));
+        return array_unique($result, SORT_REGULAR);
     }
 }
