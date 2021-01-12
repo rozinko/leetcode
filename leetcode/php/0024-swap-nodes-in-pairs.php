@@ -16,7 +16,36 @@
  *     }
  * }
  */
+
+/**
+ * Iterative solution
+ */
 class Solution
+{
+    /**
+     * @param ListNode $head
+     * @return ListNode
+     */
+    function swapPairs($head)
+    {
+        $cur = $head = new ListNode(0, $head);
+
+        while ($cur && $cur->next && $cur->next->next) {
+            $node = $cur->next;
+            $cur->next = $cur->next->next;
+            $node->next = $cur->next->next;
+            $cur->next->next = $node;
+
+            $cur = $cur->next->next;
+        }
+        return $head->next;
+    }
+}
+
+/**
+ * Recursive solution
+ */
+class Solution2
 {
     /**
      * @param ListNode $head
