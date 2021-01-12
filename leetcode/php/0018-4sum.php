@@ -23,10 +23,11 @@ class Solution
             if ($i == 0 || $nums[$i] != $nums[$i - 1])
                 for ($j = $i + 1; $j < $len - 2; $j++)
                     if ($j == $i + 1 || $nums[$j] != $nums[$j - 1]) {
+                        $presum = $nums[$i] + $nums[$j];
                         $l = $j + 1;
                         $r = $len - 1;
                         while ($l < $r) {
-                            $sum = $nums[$i] + $nums[$j] + $nums[$l] + $nums[$r];
+                            $sum = $presum + $nums[$l] + $nums[$r];
                             if ($sum > $target) {
                                 $r--;
                             } elseif ($sum < $target) {
