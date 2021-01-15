@@ -1,6 +1,8 @@
 /**
  * 1646. Get Maximum in Generated Array
  * https://leetcode.com/problems/get-maximum-in-generated-array/
+ *
+ * https://leetcode.com/problems/get-maximum-in-generated-array/discuss/931123/PHP-Easy-and-short-O(n)-solution
  */
 
 class Solution {

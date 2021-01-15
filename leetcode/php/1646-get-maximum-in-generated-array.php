@@ -15,8 +15,9 @@ class Solution
      */
     function getMaximumGenerated($n)
     {
-        for ($array = [0], $i = 1; $i <= $n; $i++)
-            $array[] = $i % 2 ? ($array[($i - 1) / 2] + ($array[($i + 1) / 2] ?? 1)) : $array[$i / 2];
-        return max($array);
+        $arr = [0, 1];
+        $i = 1;
+        while ($i++ < $n) $arr[] = $i % 2 == 0 ? $arr[$i / 2] : $arr[($i - 1) / 2] + $arr[($i + 1) / 2];
+        return $n < 1 ? 0 : max($arr);
     }
 }
