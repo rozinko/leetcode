@@ -11,7 +11,7 @@ class Solution
 {
     /**
      * @param Integer[] $nums
-     * @param Integer $k
+     * @param Integer   $k
      * @return Integer
      */
     function maxOperations($nums, $k)
@@ -25,6 +25,34 @@ class Solution
             } else {
                 $map[$num] = ($map[$num] ?? 0) + 1;
             }
+        return $pairs;
+    }
+}
+
+class Solution2
+{
+    /**
+     * @param Integer[] $nums
+     * @param Integer   $k
+     * @return Integer
+     */
+    function maxOperations($nums, $k)
+    {
+        sort($nums);
+        $pairs = 0;
+        $l = 0;
+        $r = count($nums) - 1;
+        while ($l < $r) {
+            if ($k - $nums[$l] > $nums[$r]) {
+                $l++;
+            } elseif ($k - $nums[$l] < $nums[$r]) {
+                $r--;
+            } else {
+                $l++;
+                $r--;
+                $pairs++;
+            }
+        }
         return $pairs;
     }
 }
