@@ -13,37 +13,31 @@ class Solution
      */
     function longestPalindrome($s)
     {
-        $ans = "";
-        $anslen = 0;
+        $anspos = 0;
+        $anslen = 1;
         $len = strlen($s);
 
-        for ($i = 0; $i < $len; $i++) {
-            // substr with len = 1, 3, 5, ...
-            $j = max(0, ceil($anslen / 2)); // set start j, start len must be greater that ans len
-            $maxj = min($i, $len - $i);
-            while ($j <= $maxj) {
-                $str = substr($s, $i - $j, 1 + 2 * $j);
+        for ($i = 0; 2 * ($len - $i) - 1 > $anslen; $i++) {
+            // check aba, aabaa, ...
+            for ($j = ceil($anslen / 2); $i - $j >= 0 && $i + $j + 1 <= $len; $j++) {
+                $str = substr($s, $i - $j, $j * 2 + 1);
                 if ($str != strrev($str)) break;
-                if (strlen($str) > $anslen) {
-                    $ans = $str;
-                    $anslen = strlen($str);
+                if ($j * 2 + 1 > $anslen) {
+                    $anspos = $i - $j;
+                    $anslen = $j * 2 + 1;
                 }
-                $j++;
             }
-            // substr with len = 2, 4, 6, ...
-            $j = max(0, ceil(($anslen - 1) / 2)); // set start j, start len must be greater that ans len
-            $maxj = min($i, $len - $i - 1);
-            while ($j <= $maxj) {
-                $str = substr($s, $i - $j, 2 + 2 * $j);
+            // check abba, aabbaa, ...
+            for ($j = ceil(($anslen - 1) / 2); $i - $j >= 0 && $i + $j + 2 <= $len; $j++) {
+                $str = substr($s, $i - $j, $j * 2 + 2);
                 if ($str != strrev($str)) break;
-                if (strlen($str) > $anslen) {
-                    $ans = $str;
-                    $anslen = strlen($str);
+                if ($j * 2 + 2 > $anslen) {
+                    $anspos = $i - $j;
+                    $anslen = $j * 2 + 2;
                 }
-                $j++;
             }
         }
 
-        return $ans;
+        return substr($s, $anspos, $anslen);
     }
 }
