@@ -8,14 +8,14 @@
  * @return {boolean}
  */
 var isValid = function (s) {
-    let stack = [];
+    let stack = []
 
-    for (let i = 0; i < s.length; i++) {
-        switch (s[i]) {
+    for (let ch of s) {
+        switch (ch) {
             case '(':
             case '{':
             case '[':
-                stack.push(s[i])
+                stack.push(ch)
                 break
             case ')':
                 if (stack.pop() !== '(') return false
