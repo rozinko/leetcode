@@ -13,73 +13,13 @@ class Solution
      */
     function intToRoman($num)
     {
-        $string = '';
-
-        while ($num >= 1000) {
-            $string .= 'M';
-            $num -= 1000;
-        }
-
-        if ($num >= 900) {
-            $string .= 'CM';
-            $num -= 900;
-        }
-
-        if ($num >= 500) {
-            $string .= 'D';
-            $num -= 500;
-        }
-
-        if ($num >= 400) {
-            $string .= 'CD';
-            $num -= 400;
-        }
-
-        while ($num >= 100) {
-            $string .= 'C';
-            $num -= 100;
-        }
-
-        if ($num >= 90) {
-            $string .= 'XC';
-            $num -= 90;
-        }
-
-        if ($num >= 50) {
-            $string .= 'L';
-            $num -= 50;
-        }
-
-        if ($num >= 40) {
-            $string .= 'XL';
-            $num -= 40;
-        }
-
-        while ($num >= 10) {
-            $string .= 'X';
-            $num -= 10;
-        }
-
-        if ($num >= 9) {
-            $string .= 'IX';
-            $num -= 9;
-        }
-
-        if ($num >= 5) {
-            $string .= 'V';
-            $num -= 5;
-        }
-
-        if ($num >= 4) {
-            $string .= 'IV';
-            $num -= 4;
-        }
-
-        while ($num >= 1) {
-            $string .= 'I';
-            $num -= 1;
-        }
-
-        return $string;
+        $s = str_pad($num, 4, '0', STR_PAD_LEFT);
+        $a = [
+            ["", "M", "MM", "MMM"], // 1xxx , 2xxx , 3xxx
+            ["", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM"], // 1xx , 2xx , ... , 9xx
+            ["", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC"], // 1x , 2x , ... 9x
+            ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"]  // 1 , 2 , ... , 9
+        ];
+        return $a[0][$s[0]] . $a[1][$s[1]] . $a[2][$s[2]] . $a[3][$s[3]];
     }
 }
