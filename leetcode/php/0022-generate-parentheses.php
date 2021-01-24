@@ -9,14 +9,20 @@ class Solution
 {
     /**
      * @param Integer $n
-     * @param String $s
      * @return String[]
      */
-    function generateParenthesis($n, $s = '()')
+    function generateParenthesis($n)
     {
-        if ($n == 1) return [$s];
-        for ($i = 1; $i <= strlen($s); $i++)
-            $result = array_merge($result ?? [], $this->generateParenthesis($n - 1, substr($s, 0, $i) . '()' . substr($s, $i)));
-        return array_unique($result);
+        if ($n <= 1) return $n == 1 ? ['()'] : [''];
+
+        $result = [];
+        for ($i = 0; $i <= $n - 1; $i++) $map[$i] = $this->generateParenthesis($i);
+
+        for ($i = 0; $i <= $n - 1; $i++)
+            foreach ($map[$i] as $one)
+                foreach ($map[$n - 1 - $i] as $two)
+                    $result[] = "(" . $two . ")" . $one;
+
+        return $result;
     }
 }

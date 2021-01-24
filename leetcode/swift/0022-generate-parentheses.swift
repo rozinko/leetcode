@@ -4,15 +4,26 @@
  */
 
 class Solution {
-    func generateParenthesis(_ n: Int, _ s: String = "()") -> [String] {
-        if n == 1 {
-            return [s]
+    func generateParenthesis(_ n: Int) -> [String] {
+        if n <= 1 {
+            return n == 1 ? ["()"] : [""]
         }
+
         var result: [String] = []
-        for i in 1...s.length {
-            let index = s.index(s.startIndex, offsetBy: i)
-            result += self.generateParenthesis(n - 1, s[..<index] + "()" + s[index...])
+        var map: [[String]] = []
+
+        for i in 0...n-1 {
+            map.append(self.generateParenthesis(i))
         }
-        return Array(Set(result))
+
+        for i in 0...n-1 {
+            for one in map[i] {
+                for two in map[n-1-i] {
+                    result.append("(" + two + ")" + one)
+                }
+            }
+        }
+
+        return result
     }
 }
