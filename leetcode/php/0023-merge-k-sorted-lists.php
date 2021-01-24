@@ -3,8 +3,6 @@
 /**
  * 23. Merge k Sorted Lists
  * https://leetcode.com/problems/merge-k-sorted-lists/
- *
- * TODO: Runtime: 256 ms, faster than 36.59% of PHP online submissions for Merge k Sorted Lists.
  */
 
 /**
@@ -21,18 +19,24 @@
 class Solution
 {
 
-    private $values = [];
-
-    function addValues($node)
+    function mergeTwo($a, $b)
     {
-        if ($node->val !== null) $this->values[] = $node->val;
-        if ($node->next !== null) $this->addValues($node->next);
-    }
+        $head = $c = new ListNode();
 
-    function getNodeList()
-    {
-        if (empty($this->values)) return null;
-        return new ListNode(array_shift($this->values), $this->getNodeList());
+        while ($a !== null && $b !== null) {
+            if ($a->val < $b->val) {
+                $c->next = $a;
+                $a = $a->next;
+            } else {
+                $c->next = $b;
+                $b = $b->next;
+            }
+            $c = $c->next;
+        }
+
+        $c->next = $a ?? $b;
+
+        return $head->next;
     }
 
     /**
@@ -41,9 +45,20 @@ class Solution
      */
     function mergeKLists($lists)
     {
-        foreach ($lists as $node)
-            $this->addValues($node);
-        sort($this->values);
-        return $this->getNodeList();
+        $lists = array_values(array_filter($lists, function ($a) {
+            return $a !== null;
+        }));
+
+        while (count($lists) > 1) {
+            $i = 0;
+            while (isset($lists[$i]) && isset($lists[$i + 1])) {
+                $lists[$i] = $this->mergeTwo($lists[$i], $lists[$i + 1]);
+                unset($lists[$i + 1]);
+                $i += 2;
+            }
+            $lists = array_values($lists);
+        }
+
+        return $lists[0] ?? null;
     }
 }
