@@ -11,16 +11,14 @@
 class PeekingIterator
 {
 
-    private $arr = [];
-    private $pos = 0;
+    private $it = null;
 
     /**
      * @param ArrayIterator $arr
      */
     function __construct($arr)
     {
-        $this->arr = $arr;
-        $this->pos = 0;
+        $this->it = $arr;
     }
 
     /**
@@ -28,7 +26,9 @@ class PeekingIterator
      */
     function next()
     {
-        return $this->arr[$this->pos++];
+        $current = $this->it->current();
+        $this->it->next();
+        return $current;
     }
 
     /**
@@ -36,7 +36,7 @@ class PeekingIterator
      */
     function peek()
     {
-        return $this->arr[$this->pos];
+        return $this->it->current();
     }
 
     /**
@@ -44,7 +44,7 @@ class PeekingIterator
      */
     function hasNext()
     {
-        return isset($this->arr[$this->pos]);
+        return $this->it->valid();
     }
 }
 
