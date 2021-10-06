@@ -13,22 +13,14 @@ class Solution
      */
     function findDuplicates($nums)
     {
-        $numsArray = [];
-        $result = [];
+        $map = $result = [];
 
-        foreach ($nums as $num) {
-            if (!isset($numsArray[$num])) {
-                $numsArray[$num] = 1;
+        foreach ($nums as $num)
+            if (isset($map[$num])) {
+                $result[] = $num;
             } else {
-                $numsArray[$num]++;
+                $map[$num] = 1;
             }
-        }
-
-        foreach ($numsArray as $number => $count) {
-            if ($count >= 2) {
-                $result[] = $number;
-            }
-        }
 
         return $result;
     }
