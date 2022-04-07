@@ -9,7 +9,7 @@ class Solution
 {
     /**
      * @param Integer[] $nums
-     * @param Integer $target
+     * @param Integer   $target
      * @return Integer
      */
     function search($nums, $target)
@@ -25,5 +25,41 @@ class Solution
         }
 
         return -1;
+    }
+}
+
+class Solution2
+{
+    /**
+     * @param Integer[] $nums
+     * @param Integer   $target
+     * @return Integer
+     */
+    function search($nums, $target)
+    {
+        $l = 0;
+        $r = count($nums) - 1;
+
+        if ($target < $nums[$l] || $target > $nums[$r]) return -1;
+
+        while ($l + 1 < $r) {
+            $m = ceil(($l + $r) / 2);
+            if ($nums[$m] == $target) {
+                return $m;
+            } elseif ($nums[$m] < $target) {
+                $l = $m;
+            } else {
+                $r = $m;
+            }
+        }
+
+        switch ($target) {
+            case $nums[$l]:
+                return $l;
+            case $nums[$r]:
+                return $r;
+            default:
+                return -1;
+        }
     }
 }
