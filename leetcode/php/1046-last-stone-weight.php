@@ -36,3 +36,22 @@ class Solution
         }
     }
 }
+
+class Solution2
+{
+    /**
+     * @param Integer[] $stones
+     * @return Integer
+     */
+    function lastStoneWeight($stones)
+    {
+        while (count($stones) > 1) {
+            sort($stones);
+            $one = array_pop($stones);
+            $two = array_pop($stones);
+            $val = $one - $two;
+            if ($val) array_push($stones, $val);
+        }
+        return $stones[0] ?? 0;
+    }
+}
