@@ -9,12 +9,12 @@ class Solution
 {
     /**
      * @param Integer[] $nums
-     * @param Integer $k
+     * @param Integer   $k
      * @return NULL
      */
     function rotate(&$nums, $k)
     {
         $k %= count($nums);
-        while ($k--) array_unshift($nums, array_pop($nums));
+        $nums = array_merge($k ? array_slice($nums, -$k) : [], array_slice($nums, 0, count($nums) - $k));
     }
 }
