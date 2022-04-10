@@ -13,14 +13,12 @@ class Solution
      */
     function reverseString(&$s)
     {
-        $left = 0;
-        $right = count($s) - 1;
-        while ($left < $right) {
-            $buffer = $s[$left];
-            $s[$left] = $s[$right];
-            $s[$right] = $buffer;
-            $left++;
-            $right--;
+        $l = 0;
+        $r = count($s) - 1;
+        while ($l < $r) {
+            [$s[$l], $s[$r]] = [$s[$r], $s[$l]];
+            $l++;
+            $r--;
         }
     }
 }
