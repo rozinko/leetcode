@@ -25,20 +25,14 @@ class Solution
      */
     function removeNthFromEnd($head, $n)
     {
-        if (!$head->next) return null;
-        $p1 = $p2 = $head;
-
-        while ($p2->next) {
-            $p2 = $p2->next;
-            $p1 = $n-- > 0 ? $p1 : $p1->next;
+        $node = $head = new ListNode(0, $head);
+        $end = $node->next;
+        while (--$n) $end = $end->next;
+        while ($end->next) {
+            $end = $end->next;
+            $node = $node->next;
         }
-
-        if ($n > 0) {
-            $head = $head->next;
-        } else {
-            $p1->next = $p1->next->next;
-        }
-
-        return $head;
+        $node->next = $node->next->next;
+        return $head->next;
     }
 }
