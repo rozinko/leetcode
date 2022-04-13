@@ -13,18 +13,13 @@ class Solution
      */
     function lengthOfLongestSubstring($s)
     {
-        $len = $left = $right = 0;
+        $max = 0;
         $map = [];
-
-        while ($right < strlen($s)) {
-            if (isset($map[$s[$right]])) {
-                while ($s[$left] !== $s[$right]) unset($map[$s[$left++]]);
-                $left++;
-            }
-            $map[$s[$right++]] = true;
-            $len = max($len, $right - $left);
+        for ($r = $l = 0; $r < strlen($s);) {
+            while (isset($map[$s[$r]])) unset($map[$s[$l++]]);
+            $map[$s[$r++]] = true;
+            $max = max($max, $r - $l);
         }
-
-        return $len;
+        return $max;
     }
 }
