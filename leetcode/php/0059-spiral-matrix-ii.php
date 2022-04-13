@@ -5,28 +5,26 @@
  * https://leetcode.com/problems/spiral-matrix-ii/
  */
 
-class Solution {
-
+class Solution
+{
     /**
      * @param Integer $n
      * @return Integer[][]
      */
-    function generateMatrix($n) {
-        $result = [];
-        $x = $y = $dy = 0;
+    function generateMatrix($n)
+    {
+        $matrix = array_fill(0, $n, array_fill(0, $n, 0));
+        $y = $dy = 0;
+        $x = -1;
         $dx = 1;
-        for ($i = 1; $i <= $n*$n; $i++) {
-            $result[$y][$x] = $i;
-            if (
-                isset($result[$y+$dy][$x+$dx]) ||
-                $x+$dx < 0 || $x+$dx >= $n || $y+$dy < 0 || $y+$dy >= $n
-            ) {
-                list($dy, $dx) = [$dx, $dx !== 0 ? 0 : ($dy == 1 ? -1 : 1)];
+        for ($i = 1; $i <= $n * $n; $i++) {
+            if (!isset($matrix[$y + $dy][$x + $dx]) || $matrix[$y + $dy][$x + $dx]) {
+                [$dx, $dy] = [$dx == 0 ? -$dy : 0, $dx];
             }
             $x += $dx;
             $y += $dy;
+            $matrix[$y][$x] = $i;
         }
-
-        return array_map(function($row) {ksort($row); return $row;}, $result);
+        return $matrix;
     }
 }
