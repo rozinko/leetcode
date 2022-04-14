@@ -32,3 +32,16 @@ class Solution
         return $root;
     }
 }
+
+class Solution2
+{
+    /**
+     * @param TreeNode $root
+     * @param Integer  $val
+     * @return TreeNode
+     */
+    function searchBST($root, $val)
+    {
+        return !$root || $root->val == $val ? $root : $this->searchBST($val > $root->val ? $root->right : $root->left, $val);
+    }
+}
