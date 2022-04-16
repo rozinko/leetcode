@@ -35,7 +35,7 @@ class Solution
      */
     function convertBST($root)
     {
-        $this->change($root);
+        if ($root) $this->change($root);
         return $root;
     }
 }
