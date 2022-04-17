@@ -26,45 +26,23 @@ class Solution
      */
     function increasingBST($root)
     {
-        $current = $root;
-        $nodeStack = [];
-        while ($current) {
-            if ($current->left && !$current->right) {
-                $current->right = $current->left;
-                $current->left = null;
-            }
-            if ($current->left) {
-                $nodeStack[] = $current->left;
-                $current->left = null;
-            }
-            if (!$current->right && !empty($nodeStack)) {
-                $current->right = array_pop($nodeStack);
-            }
-            $current = $current->right;
-        }
+        $flag = 1;
+        $root = new TreeNode(0, null, $root);
 
-        $flag = true;
         while ($flag) {
-            $flag = false;
-            $prev = null;
-            $current = $root;
-            while ($current && $current->right) {
-                if ($current->val > $current->right->val) {
-                    $flag = true;
-                    $node = $current->right;
-                    $current->right = $current->right->right;
-                    $node->right = $current;
-                    if ($prev) {
-                        $prev->right = $node;
-                    } else {
-                        $root = $node;
-                    }
-                }
-                $prev = $current;
-                $current = $current->right;
+            $flag = 0;
+            $node = $root;
+            while ($node->right->right && !$node->right->left) $node = $node->right;
+            if ($node->right->left) {
+                $node2 = $node->right;
+                $node->right = $node2->left;
+                $node2->left = null;
+                while ($node->right) $node = $node->right;
+                $node->right = $node2;
+                $flag = 1;
             }
         }
 
-        return $root;
+        return $root->right;
     }
 }
