@@ -22,3 +22,15 @@ class Solution
         return $ans;
     }
 }
+
+class Solution2
+{
+    /**
+     * @param Integer $n
+     * @return Integer
+     */
+    function hammingWeight($n)
+    {
+        return substr_count(decbin($n), '1');
+    }
+}
