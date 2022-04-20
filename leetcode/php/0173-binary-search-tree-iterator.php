@@ -22,15 +22,16 @@
  */
 class BSTIterator
 {
-    private $parents = [];
+    private $roots = [];
 
     /**
      * @param TreeNode $root
      */
     function __construct($root)
     {
-        while ($root) {
-            $this->parents[] = $root;
+        $this->roots[] = $root;
+        while ($root->left) {
+            $this->roots[] = $root->left;
             $root = $root->left;
         }
     }
@@ -40,14 +41,12 @@ class BSTIterator
      */
     function next()
     {
-        $cur = array_pop($this->parents);
-        $val = $cur->val;
-        if ($cur->right) {
-            $cur = $cur->right;
-            while ($cur) {
-                $this->parents[] = $cur;
-                $cur = $cur->left;
-            }
+        $root = array_pop($this->roots);
+        $val = $root->val;
+        $root = $root->right;
+        while ($root) {
+            $this->roots[] = $root;
+            $root = $root->left;
         }
         return $val;
     }
@@ -57,7 +56,7 @@ class BSTIterator
      */
     function hasNext()
     {
-        return count($this->parents) > 0;
+        return !empty($this->roots);
     }
 }
 
