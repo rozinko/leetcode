@@ -8,30 +8,23 @@
 class Solution
 {
     /**
-     * @param String $S
+     * @param String $s
      * @return String[]
      */
-    function letterCasePermutation($S)
+    function letterCasePermutation($s)
     {
-        $ans = [''];
-        foreach (str_split($S) as $ch) {
-            $ch1 = strtolower($ch);
-            $ch2 = strtoupper($ch);
-            if ($ch1 == $ch2) {
-                $ans = array_map(function ($str) use ($ch1) {
-                    return $str . $ch1;
-                }, $ans);
-            } else {
-                $ans = array_merge(
-                    array_map(function ($str) use ($ch1) {
-                        return $str . $ch1;
-                    }, $ans),
-                    array_map(function ($str) use ($ch2) {
-                        return $str . $ch2;
-                    }, $ans)
-                );
+        $s = strtolower($s);
+        $stack = [$s];
+
+        for ($i = 0; $i < strlen($s); $i++)
+            if (ord($s[$i]) >= 97 && ord($s[$i]) <= 122) {
+                // ord a...z = 97...122
+                $stack = array_merge($stack, array_map(function ($s) use ($i) {
+                    $s[$i] = strtoupper($s[$i]);
+                    return $s;
+                }, $stack));
             }
-        }
-        return $ans;
+
+        return $stack;
     }
 }
