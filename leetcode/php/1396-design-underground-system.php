@@ -8,15 +8,14 @@
 class UndergroundSystem
 {
 
-    private $data = [];
-    private $times = [];
+    private $ins = [];
+    private $travels = [];
 
     /**
      */
     function __construct()
     {
-        $this->data = [];
-        $this->times = [];
+
     }
 
     /**
@@ -27,7 +26,7 @@ class UndergroundSystem
      */
     function checkIn($id, $stationName, $t)
     {
-        $this->data[$id] = [$stationName, $t];
+        $this->ins[$id] = ['stationName' => $stationName, 't' => $t];
     }
 
     /**
@@ -38,12 +37,13 @@ class UndergroundSystem
      */
     function checkOut($id, $stationName, $t)
     {
-        $stationFrom = $this->data[$id][0];
-        $time = $t - $this->data[$id][1];
-        if (!isset($this->times[$stationFrom][$stationName])) {
-            $this->times[$stationFrom][$stationName] = [$time];
-        } else {
-            $this->times[$stationFrom][$stationName][] = $time;
+        if (isset($this->ins[$id])) {
+            $stationFrom = $this->ins[$id]['stationName'];
+            $time = $t - $this->ins[$id]['t'];
+            if (!isset($this->travels[$stationFrom][$stationName])) {
+                $this->travels[$stationFrom][$stationName] = [];
+            }
+            $this->travels[$stationFrom][$stationName][] = $time;
         }
     }
 
@@ -54,7 +54,8 @@ class UndergroundSystem
      */
     function getAverageTime($startStation, $endStation)
     {
-        return array_sum($this->times[$startStation][$endStation]) / count($this->times[$startStation][$endStation]);
+        if (!isset($this->travels[$startStation][$endStation])) return 0;
+        return array_sum($this->travels[$startStation][$endStation]) / count($this->travels[$startStation][$endStation]);
     }
 }
 
