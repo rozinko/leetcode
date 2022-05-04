@@ -11,13 +11,15 @@
  * @return {number}
  */
 var maxOperations = function (nums, k) {
-    let map = [], pairs = 0
-    for (let i = 0; i < nums.length; i++)
-        if (map[k - nums[i]] !== undefined && map[k - nums[i]]) {
-            map[k - nums[i]]--
+    let map = {}, pairs = 0
+
+    for (let num of nums)
+        if (map[k - num]) {
+            map[k - num]--
             pairs++
         } else {
-            map[nums[i]] = map[nums[i]] == undefined ? 1 : map[nums[i]] + 1
+            map[num] = 1 + (map[num] ?? 0)
         }
+
     return pairs
 };
