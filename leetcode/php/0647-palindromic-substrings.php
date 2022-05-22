@@ -7,27 +7,35 @@
 
 class Solution
 {
+
     /**
      * @param String $s
      * @return Integer
      */
     function countSubstrings($s)
     {
-        $len = strlen($s);
-        $ans = $len;
+        // add all a, b, c, ...
+        $ans = strlen($s);
 
-        for ($i = 0; $i < $len - 1; $i++) {
-            // check aba, aabaa, ...
-            for ($j = 1; $i - $j >= 0 && $i + $j + 1 <= $len; $j++) {
-                $str = substr($s, $i - $j, $j * 2 + 1);
-                if ($str != strrev($str)) break;
+        // check aba, abcba, ...
+        for ($i = 1; $i < strlen($s) - 1; $i++) {
+            $left = $i - 1;
+            $right = $i + 1;
+            while ($left >= 0 && $right < strlen($s) && $s[$left] === $s[$right]) {
                 $ans++;
+                $left--;
+                $right++;
             }
-            // check abba, aabbaa, ...
-            for ($j = 0; $i - $j >= 0 && $i + $j + 2 <= $len; $j++) {
-                $str = substr($s, $i - $j, $j * 2 + 2);
-                if ($str != strrev($str)) break;
+        }
+
+        // check abba, abccba, ...
+        for ($i = 0; $i < strlen($s) - 1; $i++) {
+            $left = $i;
+            $right = $i + 1;
+            while ($left >= 0 && $right < strlen($s) && $s[$left] === $s[$right]) {
                 $ans++;
+                $left--;
+                $right++;
             }
         }
 
