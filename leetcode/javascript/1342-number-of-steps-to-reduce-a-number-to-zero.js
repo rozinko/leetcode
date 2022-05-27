@@ -15,3 +15,7 @@ var numberOfSteps = function (num) {
     }
     return steps
 };
+
+var numberOfSteps2 = function (num) {
+    return num ? 1 + numberOfSteps(num % 2 ? num - 1 : num / 2) : 0
+};
