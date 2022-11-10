@@ -8,21 +8,24 @@
  * @return {number}
  */
 var lengthOfLongestSubstring = function (s) {
-    let len = 0, left = 0, right = 0
-    let map = {}, mapCount = 0
+  if (s.length <= 1) return s.length;
 
-    while (right < s.length) {
-        if (map[s[right]]) {
-            while (s[left] !== s[right]) {
-                delete map[s[left++]]
-                mapCount--
-            }
-            mapCount--
-            left++
-        }
-        map[s[right++]] = true
-        len = Math.max(len, ++mapCount)
+  let l = 0,
+    r = 0,
+    max = 1,
+    now = 1,
+    letters = {};
+  letters[s[l]] = true;
+
+  while (++r < s.length) {
+    while (letters[s[r]] !== undefined && letters[s[r]]) {
+      letters[s[l++]] = false;
+      now--;
     }
+    letters[s[r]] = true;
+    now++;
+    max = Math.max(max, now);
+  }
 
-    return len
+  return max;
 };
