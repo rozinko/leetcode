@@ -3,6 +3,6 @@
 * https://leetcode.com/problems/duplicate-emails/
 */
 
-SELECT Email
-FROM (SELECT Email, COUNT(*) as 'Count' FROM Person GROUP BY Email) as t
-WHERE t.Count > 1;
+SELECT email 
+FROM (SELECT email, COUNT(*) as 'count' FROM Person GROUP BY email) as temp 
+WHERE temp.count > 1
