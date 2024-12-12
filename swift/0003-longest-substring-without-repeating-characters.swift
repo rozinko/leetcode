@@ -5,23 +5,24 @@
 
 class Solution {
     func lengthOfLongestSubstring(_ s: String) -> Int {
-        var len = 0, left = 0, right = 0
-        var map: [String: Bool] = [:]
-        var s = Array(s).map{String($0)}
+        let characters: [String] = Array(s).map { String($0) }
+        var hashmap: [String: Bool] = [:]
+        var l = 0, r = 0
+        var ans = 0
 
-        while right < s.count {
-            if map[s[right]] != nil {
-                while s[left] != s[right] {
-                    map[s[left]] = nil
-                    left += 1
-                }
-                left += 1
+        while (r < characters.count) {
+            let ch = characters[r]
+            while hashmap[ch] != nil {
+                hashmap[characters[l]] = nil
+                l += 1
             }
-            map[s[right]] = true
-            right += 1
-            len = max(len, map.count)
+            hashmap[ch] = true
+
+            ans = max(ans, r - l + 1)
+
+            r += 1
         }
 
-        return len
+        return ans
     }
-}s
+}
