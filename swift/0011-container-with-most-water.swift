@@ -21,3 +21,20 @@
          return maxWater
      }
  }
+
+ class Solution2 {
+    func maxArea(_ height: [Int]) -> Int {
+        var stack: [(index: Int, height: Int)] = [], ans = 0
+
+        for (i, h) in height.enumerated() {
+            if stack.count == 0 || h > (stack.last?.height ?? h) {
+                stack.append((index: i, height: h))
+            }
+            for prev in stack {
+                ans = max(ans, min(prev.height, h) * (i - prev.index))
+            }
+        }
+
+        return ans
+    }
+}
