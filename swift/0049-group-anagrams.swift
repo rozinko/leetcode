@@ -5,17 +5,13 @@
 
 class Solution {
     func groupAnagrams(_ strs: [String]) -> [[String]] {
-        var map: [String: [String]] = [:]
+        var dict = [String: [String]]()
 
-        for str in strs {
-            let s = String(Array(str).sorted())
-            if map[s] == nil {
-                map[s] = [str]
-            } else {
-                map[s]!.append(str)
-            }
+        for s in strs {
+            let key = String(s.sorted())
+            dict[key, default: []].append(s)
         }
 
-        return Array(map.values)
+        return Array(dict.values)
     }
 }
