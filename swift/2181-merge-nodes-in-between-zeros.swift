@@ -1,0 +1,35 @@
+/**
+ * 2181. Merge Nodes in Between Zeros
+ * https://leetcode.com/problems/merge-nodes-in-between-zeros/
+ **/
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     public var val: Int
+ *     public var next: ListNode?
+ *     public init() { self.val = 0; self.next = nil; }
+ *     public init(_ val: Int) { self.val = val; self.next = nil; }
+ *     public init(_ val: Int, _ next: ListNode?) { self.val = val; self.next = next; }
+ * }
+ */
+class Solution {
+    func mergeNodes(_ head: ListNode?) -> ListNode? {
+        var cur = head?.next, prev = head
+
+        while cur?.next != nil {
+            if cur?.next?.val == 0 {
+                prev = cur
+                cur = cur?.next
+            } else {
+                cur!.val += cur?.next?.val ?? 0
+                prev = cur
+                cur!.next = cur?.next?.next
+            }
+        }
+
+        prev?.next = nil
+
+        return head?.next
+    }
+}
