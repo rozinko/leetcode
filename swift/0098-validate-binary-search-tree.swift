@@ -21,19 +21,18 @@
  * }
  */
 class Solution {
-    func isValidBST(_ root: TreeNode?, _ less: Int? = nil, _ greater: Int? = nil) -> Bool {
-        return root == nil || (
-            (
-                less == nil || root!.val < less!
-            ) && (
-                greater == nil || root!.val > greater!
-            ) && (
-                root?.left == nil ||
-                (root!.left!.val < root!.val && self.isValidBST(root?.left, root!.val, greater))
-            ) && (
-                root?.right == nil ||
-                (root!.right!.val > root!.val && self.isValidBST(root?.right, less, root!.val))
-            )
-        )
+    
+    func isValidBST(_ root: TreeNode?) -> Bool {
+        func isValid(_ root: TreeNode?, less: Int, greater: Int) -> Bool {
+            guard let root = root else { return true }
+
+            let thisValid = root.val < less && root.val > greater
+            let leftValid = isValid(root.left, less: root.val, greater: greater)
+            let rightValid = isValid(root.right, less: less, greater: root.val)
+
+            return thisValid && leftValid && rightValid
+        }
+        
+        return isValid(root, less: .max, greater: .min)
     }
 }
