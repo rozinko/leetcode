@@ -24,3 +24,24 @@ class Solution {
         return ans
     }
 }
+
+class Solution2 {
+    func countAndSay(_ n: Int) -> String {
+        guard n > 1 else { return "1" }
+
+        var ans: String = ""
+        let prev: [Character] = Array(countAndSay(n-1))
+        
+        var count: Int, i = 0
+        while i < prev.count {
+            count = 1
+
+            while i + count < prev.count && prev[i+count] == prev[i] { count += 1 }
+
+            ans += String(count) + String(prev[i])
+            i += count
+        }
+        
+        return ans
+    }
+}
